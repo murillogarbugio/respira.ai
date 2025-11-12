@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diário TCC - Respirar Agora Premium</title>
+    <link rel="stylesheet" href="diario.css">
+</head>
+<body>
+    <header class="area-membros">
+        <h1>Diário TCC Interativo ✍️</h1>
+        <p>Preencha os campos para identificar e reestruturar pensamentos negativos.</p>
+        <nav>
+            <a href="dashboard.html">Voltar para o Dashboard</a> |
+            <a href="historico.html">Ver Histórico</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <form id="form-diario">
+            <fieldset>
+                <legend>1. Situação (O Fato)</legend>
+                <label for="data-hora">Data e Hora:</label>
+                <input type="datetime-local" id="data-hora" required>
+                <label for="situacao-fato">Onde você estava e o que estava acontecendo?</label>
+                <textarea id="situacao-fato" rows="3" placeholder="Ex: Estava na reunião de trabalho e o chefe pediu para eu apresentar os resultados." required></textarea>
+            </fieldset>
+
+            <fieldset>
+                <legend>2. Emoções e Intensidade</legend>
+                <label for="emocoes-sentidas">Quais emoções você sentiu?</label>
+                <input type="text" id="emocoes-sentidas" placeholder="Ex: Ansiedade, Medo, Frustração">
+                
+                <label for="intensidade-inicial">Intensidade Inicial (0-100):</label>
+                <input type="range" id="intensidade-inicial" min="0" max="100" value="50" oninput="document.getElementById('valor-inicial').innerText = this.value + '%'">
+                <p>Valor: <span id="valor-inicial">50%</span></p>
+            </fieldset>
+
+            <fieldset>
+                <legend>3. Pensamento Automático (O P.A.)</legend>
+                <label for="pensamento-automatico">Qual foi o seu pensamento imediato?</label>
+                <textarea id="pensamento-automatico" rows="3" placeholder="Ex: 'Vou falhar terrivelmente e todos vão rir de mim.'" required></textarea>
+                <label for="evidencia-pro">Você acreditava 100% neste pensamento?</label>
+                <input type="range" id="evidencia-pro" min="0" max="100" value="80" oninput="document.getElementById('crenca-pa').innerText = this.value + '%'">
+                <p>Nível de Crença: <span id="crenca-pa">80%</span></p>
+            </fieldset>
+
+            <fieldset>
+                <legend>4. Desafio Cognitivo (A Reestruturação)</legend>
+                
+                <h3>Evidências Contra o P.A.</h3>
+                <label for="evidencias-contra">Fatos que provam que o P.A. NÃO é 100% verdade:</label>
+                <textarea id="evidencias-contra" rows="3" placeholder="Ex: Eu já apresentei antes e fui bem. Meu chefe confia em mim para este trabalho."></textarea>
+
+                <h3>Pensamento Alternativo</h3>
+                <label for="pensamento-alternativo">Qual seria um pensamento mais equilibrado e realista?</label>
+                <textarea id="pensamento-alternativo" rows="3" placeholder="Ex: 'Posso sentir um pouco de nervosismo, mas estou preparado. O pior que pode acontecer é eu aprender com a experiência.'"></textarea>
+            </fieldset>
+
+            <fieldset>
+                <legend>5. Intensidade Final</legend>
+                <label for="intensidade-final">Qual a intensidade da sua emoção agora (0-100)?</label>
+                <input type="range" id="intensidade-final" min="0" max="100" value="25" oninput="document.getElementById('valor-final').innerText = this.value + '%'">
+                <p>Valor: <span id="valor-final">25%</span></p>
+
+                <label for="aprendizado">O que você aprendeu com este registro?</label>
+                <textarea id="aprendizado" rows="2" placeholder="Ex: Minha ansiedade diminuiu após eu analisar os fatos e não apenas as emoções."></textarea>
+            </fieldset>
+
+            <button type="submit" id="btn-salvar">Salvar Registro no Histórico</button>
+            <p id="mensagem-status" style="margin-top: 15px; color: green; font-weight: bold;"></p>
+        </form>
+    </main>
+</body>
+<script src="diario.js"></script>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6; /* Fundo suave */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.area-membros {
+    background-color: #0077b6;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.area-membros nav a {
+    color: #e6f7ff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Estilo dos Fieldsets (Blocos do Formulário) */
+fieldset {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+    text-align: left;
+}
+
+legend {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #0077b6;
+    padding: 0 10px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="datetime-local"], 
+input[type="text"], 
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Inclui padding e borda no width total */
+    margin-bottom: 15px;
+    resize: vertical;
+}
+
+input[type="range"] {
+    width: calc(100% - 20px);
+    margin: 10px;
+}
+
+#btn-salvar {
+    background-color: #4CAF50; /* Verde de sucesso */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+#btn-salvar:hover {
+    background-color: #45a049;
+}
+document.getElementById('form-diario').addEventListener('submit', function(event) {
+    event.preventDefault(); // Impede o envio padrão do formulário
+
+    const statusElement = document.getElementById('mensagem-status');
+    
+    // 1. Coleta dos Dados do Formulário
+    const registro = {
+        dataHora: document.getElementById('data-hora').value,
+        situacao: document.getElementById('situacao-fato').value,
+        emocoes: document.getElementById('emocoes-sentidas').value,
+        intensidadeInicial: document.getElementById('intensidade-inicial').value + '%',
+        pensamentoAutomatico: document.getElementById('pensamento-automatico').value,
+        crencaPA: document.getElementById('evidencia-pro').value + '%',
+        evidenciasContra: document.getElementById('evidencias-contra').value,
+        pensamentoAlternativo: document.getElementById('pensamento-alternativo').value,
+        intensidadeFinal: document.getElementById('intensidade-final').value + '%',
+        aprendizado: document.getElementById('aprendizado').value
+    };
+
+    // 2. Simulação de Envio para o Backend/Banco de Dados
+    // **Em um projeto real, você usaria a função fetch() aqui para enviar os dados para a sua API.**
+    
+    console.log("Dados do Registro TCC para Envio (Simulação):", registro);
+
+    // 3. Feedback para o Usuário
+    statusElement.textContent = `Registro salvo com sucesso! Sua intensidade de ansiedade diminuiu de ${registro.intensidadeInicial} para ${registro.intensidadeFinal}.`;
+    statusElement.style.color = 'green';
+    
+    // 4. Limpar o formulário (opcional)
+    this.reset();
+    
+    // 5. Atualizar ranges para valores iniciais
+    document.getElementById('valor-inicial').innerText = '50%';
+    document.getElementById('crenca-pa').innerText = '80%';
+    document.getElementById('valor-final').innerText = '25%';
+});
+
+// Funções para manter a porcentagem dos ranges sempre visível
+document.getElementById('intensidade-inicial').oninput = function() {
+    document.getElementById('valor-inicial').innerText = this.value + '%';
+};
+document.getElementById('evidencia-pro').oninput = function() {
+    document.getElementById('crenca-pa').innerText = this.value + '%';
+};
+document.getElementById('intensidade-final').oninput = function() {
+    document.getElementById('valor-final').innerText = this.value + '%';
+};
+
+// Define a data/hora inicial como o momento atual (para maior usabilidade)
+document.addEventListener('DOMContentLoaded', () => {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById('data-hora').value = now.toISOString().slice(0, 16);
+});
